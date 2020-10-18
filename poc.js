@@ -32,7 +32,7 @@ btnStart.addEventListener("click", async () => {
 
   pcFrom.getSenders().forEach((sender) => {
     const senderStream = sender.createEncodedStreams();
-    const { readableStream, writableStream } = senderStream;
+    const { readable: readableStream, writable: writableStream } = senderStream;
     const transformStream = new TransformStream({
       transform: enDecoder,
     });
@@ -62,7 +62,7 @@ btnStart.addEventListener("click", async () => {
 
   pcSFUEgress.getSenders().forEach((sender) => {
     const senderStream = sender.createEncodedStreams();
-    const { readableStream, writableStream } = senderStream;
+    const { readable: readableStream, writable: writableStream } = senderStream;
     const transformStream = new TransformStream({
       transform: enDecoder,
     });
@@ -75,7 +75,10 @@ btnStart.addEventListener("click", async () => {
 
   pcTo.ontrack = (event) => {
     let receiverStreams = event.receiver.createEncodedStreams();
-    const { readableStream, writableStream } = receiverStreams;
+    const {
+      readable: readableStream,
+      writable: writableStream,
+    } = receiverStreams;
     const transformStream = new TransformStream({
       transform: enDecoder,
     });
